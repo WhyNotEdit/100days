@@ -8,7 +8,10 @@ const DEFAULTS = {
 
 function getRedis() {
   try {
-    return Redis.fromEnv()
+    const url   = process.env.KV_REST_API_URL
+    const token = process.env.KV_REST_API_TOKEN
+    if (!url || !token) return null
+    return new Redis({ url, token })
   } catch(e) {
     return null
   }
